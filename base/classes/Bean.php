@@ -6,6 +6,8 @@
  * Date: 22/12/2017
  * Time: 19:24
  */
+
+
 class Bean  implements ArrayAccess, JsonSerializable
 {
     use Magic;

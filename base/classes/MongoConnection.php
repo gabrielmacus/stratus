@@ -7,7 +7,7 @@
  * Time: 02:22 PM
  */
 
-require_once "Magic.php";
+
 class MongoConnection
 {
     use Magic;

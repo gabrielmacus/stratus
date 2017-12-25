@@ -99,9 +99,11 @@ class BeanDAO
             {
                 foreach ($associationsMap[$id] as $k=>$v)
                 {
-
-                    $results[$id]= ["bean"=>$beanFromArray,"group"=>$v,"parent"=>$k];
+                    //$beanFromArray;
+                    $results[$id][$v]= $k;
                 }
+
+                $results[$id]["_bean"]=$beanFromArray;
 
             }
 
@@ -118,50 +120,67 @@ class BeanDAO
 
 
 
-        foreach ($results as $k=>$v)
+        foreach ($results as $i=>$j)
         {
 
+            $b = $j["_bean"];
 
+            unset($j["_bean"]);
 
-            if(!empty($results[$v["parent"]]))
+            foreach ($j as $k=>$l)
             {
 
-                if(empty($results[$v["parent"]]["bean"][$v["group"]]))
+                if(!empty($results[$l]))
                 {
-                    $results[$v["parent"]]["bean"][$v["group"]]=[];
+
+
+
+                    if(empty($results[$l]["_bean"][$k]))
+                    {
+                        $results[$l]["_bean"][$k]=[];
+                    }
+                    $arr = $results[$l]["_bean"][$k];
+
+                    $arr[strval($b["_id"])] = $b;
+
+                    $results[$l]["_bean"][$k]=$arr;
+
                 }
-
-                $arr=$results[$v["parent"]]["bean"][$v["group"]];
-
-                $arr[strval($v["bean"]["_id"])]=$v["bean"];
-
-                $results[$v["parent"]]["bean"][$v["group"]]=$arr;
-
-             //   unset($results[$k]);
             }
-        }
 
-      foreach ($results as $k=>$v)
-        {
-
-            if(!empty($parentBeans[$v["parent"]]))
-            {
-                if(empty($parentBeans[$v["parent"]][$v["group"]]))
-                {
-                    $parentBeans[$v["parent"]][$v["group"]]=[];
-                }
-
-                $arr = $parentBeans[$v["parent"]][$v["group"]];
-
-                $arr[strval($v["bean"]["_id"])] = $v["bean"];
-
-                $parentBeans[$v["parent"]][$v["group"]] = $arr;
-
-
-            }
         }
 
 
+        foreach ($results as $i=>$j)
+        {
+
+            $b = $j["_bean"];
+
+            unset($j["_bean"]);
+
+            foreach ($j as $k=>$l)
+            {
+
+
+                if(!empty($parentBeans[$l]))
+                {
+
+                    if(empty($parentBeans[$l][$k]))
+                    {
+                        $parentBeans[$l][$k]=[];
+                    }
+
+                    $arr = $parentBeans[$l][$k];
+
+                    $arr[strval($b["_id"])] = $b;
+
+                    $parentBeans[$l][$k]=$arr;
+
+
+                }
+            }
+
+        }
 
     }
 

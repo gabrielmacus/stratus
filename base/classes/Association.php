@@ -4,9 +4,11 @@
  * Created by PhpStorm.
  * User: Puers
  * Date: 23/12/2017
- * Time: 18:04
+ * Time: 0:33
  */
-class Company extends Bean
+
+
+class Association extends Bean
 {
 
 }

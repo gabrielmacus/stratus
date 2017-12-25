@@ -3,10 +3,11 @@
 /**
  * Created by PhpStorm.
  * User: Puers
- * Date: 23/12/2017
- * Time: 18:05
+ * Date: 24/12/2017
+ * Time: 16:08
  */
-class Car extends Bean
+class FileService
 {
+
 
 }
