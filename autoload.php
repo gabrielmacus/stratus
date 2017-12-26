@@ -10,14 +10,53 @@ define("ROOT_DIR",dirname(__FILE__)."/");
 
 define("BASE_DIR",ROOT_DIR."base/");
 
-define("BASE_CLASS_DIR",BASE_DIR."classes/");
-
 define("CURRENT_URL",(isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 
 function base_autoload($class)
 {
 
-    $includeClass = BASE_CLASS_DIR."{$class}.php";
+    switch (true)
+    {
+
+        default:
+            $includeClass = BASE_DIR."models/{$class}.php";
+            break;
+        case (file_exists(BASE_DIR."daos/{$class}.php")):
+
+            $includeClass = BASE_DIR."daos/{$class}.php";
+
+            break;
+
+        case (file_exists(BASE_DIR."services/{$class}.php")):
+
+            $includeClass = BASE_DIR."services/{$class}.php";
+
+            break;
+
+        case (file_exists(BASE_DIR."exceptions/{$class}.php")):
+
+            $includeClass = BASE_DIR."exceptions/{$class}.php";
+
+            break;
+        case (file_exists(BASE_DIR."traits/{$class}.php")):
+
+            $includeClass = BASE_DIR."traits/{$class}.php";
+
+            break;
+        case (file_exists(BASE_DIR."views/{$class}.php")):
+
+            $includeClass = BASE_DIR."views/{$class}.php";
+
+            break;
+        case (file_exists(BASE_DIR."interfaces/{$class}.php")):
+
+            $includeClass = BASE_DIR."interfaces/{$class}.php";
+
+            break;
+
+    }
+
+
     require($includeClass);
 }
 

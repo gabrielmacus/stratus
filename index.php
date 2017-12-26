@@ -15,3 +15,9 @@ $mongoConnection = new MongoConnection("stratus");
 $mongoConnection->connect();
 
 $DAO = new BeanDAO($mongoConnection);
+
+$beans = $DAO->read(new Bean());
+
+$view =new BeanList([]);
+
+echo $view->getHTML();

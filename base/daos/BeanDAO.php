@@ -21,21 +21,37 @@ class BeanDAO
         $this->mongoConnection = $mongoConnection;
     }
 
+    protected  function beforeSave(Bean &$bean)
+    {
+
+    }
+
+    protected  function afterSave(Bean &$bean)
+    {
+
+    }
 
     function save(Bean &$bean)
     {
+
+        $bean->validate();
+
         $this->mongoConnection->connect();
 
         $collection = $this->mongoConnection->client()->beans;
 
         $data = $bean->jsonSerialize() + ["_type"=>get_class($bean)];
 
+        $this->beforeSave($bean);
+
         if(!$collection->save($data))
         {
             throw new Exception("bean.error.save");
         }
 
+        $bean->_id = $data["_id"];
 
+        $this->afterSave($bean);
 
     }
 

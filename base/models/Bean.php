@@ -8,7 +8,7 @@
  */
 
 
-class Bean  implements ArrayAccess, JsonSerializable
+class Bean  implements ArrayAccess, JsonSerializable,IPrintable
 {
     use Magic;
     public function __construct()
@@ -34,6 +34,28 @@ class Bean  implements ArrayAccess, JsonSerializable
     public function offsetUnset($offset)
     {
         unset($this->$offset);
+    }
+
+    public function printSerialize()
+    {
+       $arr=[];
+       $i=0;
+       foreach ($this as $k=>$v)
+       {
+
+           $arr[$k]=$v;
+
+           $i++;
+
+
+       }
+
+       return $arr;
+    }
+
+    public function validate()
+    {
+
     }
 
     function jsonSerialize()
