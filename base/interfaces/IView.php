@@ -2,19 +2,13 @@
 
 /**
  * Created by PhpStorm.
- * User: Puers
- * Date: 26/12/2017
- * Time: 20:51
+ * User: Gabriel
+ * Date: 27/12/2017
+ * Time: 02:28 PM
  */
 interface IView
 {
-
-    /**
-     * IView constructor.
-     * @param array $printables IPrintable objects array
-     */
-    public function __construct(array $printables);
-
     public function getHTML();
 
+    public function getTplSrc();
 }

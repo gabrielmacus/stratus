@@ -34,11 +34,12 @@ class BeanDAO
     function save(Bean &$bean)
     {
 
-        $bean->validate();
 
         $this->mongoConnection->connect();
 
         $collection = $this->mongoConnection->client()->beans;
+
+        $bean->validate();
 
         $data = $bean->jsonSerialize() + ["_type"=>get_class($bean)];
 
@@ -284,8 +285,10 @@ class BeanDAO
     }
 
 
-    private static function BeanFromArray(Array $array)
+     static function BeanFromArray(Array $array)
     {
+
+
 
             $bean = new $array["_type"]();
 

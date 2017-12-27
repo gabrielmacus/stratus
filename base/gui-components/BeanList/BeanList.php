@@ -6,7 +6,7 @@
  * Date: 26/12/2017
  * Time: 11:18 AM
  */
-class BeanList implements IView
+class BeanList implements IList,IView
 {
 
     protected $dataToPrint;
@@ -19,13 +19,21 @@ class BeanList implements IView
 
         foreach ($printables as $printable){
 
+
             if(is_a($printable,"IPrintable"))
             {
+                $this->onProcess($printable);
+
                 $dataToPrint[]=$printable->printSerialize();
             }
 
         }
         $this->dataToPrint = $dataToPrint;
+    }
+
+    public function onProcess(IPrintable $printable)
+    {
+        // TODO: Implement onProcess() method.
     }
 
     public function getHTML()
@@ -43,7 +51,7 @@ class BeanList implements IView
         }
 
 
-        $html =  $core->get(dirname(__FILE__)."/list.tpl", $templateData);
+        $html =  $core->get($this->getTplSrc(), $templateData);
 
 
 
@@ -51,4 +59,8 @@ class BeanList implements IView
 
     }
 
+    public function getTplSrc()
+    {
+        return dirname(__FILE__)."/list.tpl";
+    }
 }

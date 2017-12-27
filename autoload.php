@@ -45,9 +45,9 @@ function base_autoload($class)
             $includeClass = BASE_DIR."traits/{$class}.php";
 
             break;
-        case (file_exists(BASE_DIR."views/{$class}/{$class}.php")):
+        case (file_exists(BASE_DIR."gui-components/{$class}/{$class}.php")):
 
-            $includeClass = BASE_DIR."views/{$class}/{$class}.php";
+            $includeClass = BASE_DIR."gui-components/{$class}/{$class}.php";
 
 
 
