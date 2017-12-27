@@ -17,8 +17,10 @@ function base_autoload($class)
 
     switch (true)
     {
+        case (file_exists(BASE_DIR."models/{$class}.php")):
 
-        default:
+
+
             $includeClass = BASE_DIR."models/{$class}.php";
             break;
         case (file_exists(BASE_DIR."daos/{$class}.php")):
@@ -43,9 +45,11 @@ function base_autoload($class)
             $includeClass = BASE_DIR."traits/{$class}.php";
 
             break;
-        case (file_exists(BASE_DIR."views/{$class}.php")):
+        case (file_exists(BASE_DIR."views/{$class}/{$class}.php")):
 
-            $includeClass = BASE_DIR."views/{$class}.php";
+            $includeClass = BASE_DIR."views/{$class}/{$class}.php";
+
+
 
             break;
         case (file_exists(BASE_DIR."interfaces/{$class}.php")):
@@ -53,11 +57,21 @@ function base_autoload($class)
             $includeClass = BASE_DIR."interfaces/{$class}.php";
 
             break;
+        case (file_exists(BASE_DIR."controllers/{$class}.php")):
 
+            $includeClass = BASE_DIR."controllers/{$class}.php";
+
+            break;
     }
 
+    if(!empty($includeClass))
+    {
 
-    require($includeClass);
+        require($includeClass);
+    }
+
 }
 
 spl_autoload_register('base_autoload');
+
+include(ROOT_DIR."/vendor/autoload.php");
